@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Field } from "formik";
 
-const FormikSelect = ({ label, name, formik }) => {
+const FormikSelect = ({ label, name, options, formik }) => {
   return (
     <>
       <div className="form-group row bg-dark-subtle p-2 rounded-1 my-2">
@@ -21,9 +21,11 @@ const FormikSelect = ({ label, name, formik }) => {
             <option disabled value="">
               Please select one
             </option>
-            <option value="Action">Action</option>
-            <option value="Horror">Horror</option>
-            <option value="Sc-fi">Sc-fi</option>
+            {options?.map((option, idx) => (
+              <option key={idx} value={option?.value}>
+                {option?.label}
+              </option>
+            ))}
           </Field>
         </div>
       </div>

@@ -1,27 +1,73 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CartCard from "./CartCard";
+import { SET_CART } from "../../redux/sagas/actions";
+import { ApiServices } from "../../utils/httpServices";
+import {
+  emitErrorToast,
+  emitSuccessToast,
+} from "../../common/toast/ReactToast";
 
 const CartList = () => {
   const { books } = useSelector((state) => state?.cart);
+  const dispatch = useDispatch();
 
   const [bookList, setBookList] = useState([]);
+
+  const [totalAmount, setTotalAmount] = useState("000.00");
 
   useEffect(() => {
     // getCartList();
     if (books) {
       setBookList(books);
+      let price = 0;
+      books?.forEach((cart) => {
+        price += cart?.quantity * cart?.book?.price;
+      });
+      setTotalAmount(price);
     }
     //eslint-disable-next-line
   }, []);
 
   const handleRemove = async (cartId) => {
-    console.log(cartId);
+    const { message, success } = await ApiServices.delete(`/cart/${cartId}`);
+
+    if (success) {
+      const carts = bookList?.filter((item) => item?.cartId !== cartId);
+      setBookList(carts);
+      dispatch(SET_CART(carts));
+      emitSuccessToast(message);
+    } else {
+      emitErrorToast(message);
+    }
   };
 
   const handleUpdate = async (quantity, cartId) => {
-    console.log(quantity, cartId);
+    const { message, success } = await ApiServices.put({
+      url: `/cart/edit/${cartId}`,
+      data: quantity,
+    });
+
+    if (success) {
+      let carts = [];
+      bookList?.forEach((item) => {
+        if (item?.cartId === cartId) {
+          carts.push({ ...item, quantity: quantity });
+        } else {
+          carts.push(item);
+        }
+      });
+      setBookList(carts);
+      dispatch(SET_CART(carts));
+      emitSuccessToast(message);
+    } else {
+      emitErrorToast(message);
+    }
+  };
+
+  const handleChange = (changeAmount) => {
+    setTotalAmount((prev) => prev + changeAmount);
   };
 
   return (
@@ -36,10 +82,7 @@ const CartList = () => {
               </i>
               items in your cart
             </p>
-            <table
-              id="shoppingCart"
-              className="table table-condensed table-responsive"
-            >
+            <table className="table table-condensed table-responsive">
               <thead>
                 <tr>
                   <th style={{ width: "60%" }}>Product</th>
@@ -55,6 +98,7 @@ const CartList = () => {
                     cart={cart}
                     handleUpdate={handleUpdate}
                     handleRemove={handleRemove}
+                    handleChange={handleChange}
                   />
                 ))}
               </tbody>
@@ -64,7 +108,7 @@ const CartList = () => {
         <div className="d-flex justify-content-end ">
           <div>
             <h4>Subtotal:</h4>
-            <h1>$99.00</h1>
+            <h1>NPR {totalAmount}</h1>
           </div>
         </div>
         <div className="mt-4 d-flex align-items-center justify-content-between ">

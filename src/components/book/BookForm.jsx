@@ -22,6 +22,12 @@ const BookForm = ({ editBook }) => {
     available: true,
   });
 
+  const bookOptions = [
+    { label: "Action", value: "Action" },
+    { label: "Horror", value: "Horror" },
+    { label: "Sc-fi", value: "Sc-fi" },
+  ];
+
   useEffect(() => {
     if (editBook) {
       setBook(editBook);
@@ -76,7 +82,12 @@ const BookForm = ({ editBook }) => {
               label="Book Author"
               placeholder="Enter book author"
             />
-            <FormikSelect name="genre" formik={formik} label="Book Genre" />
+            <FormikSelect
+              name="genre"
+              options={bookOptions}
+              formik={formik}
+              label="Book Genre"
+            />
             <FormikInputField
               name="price"
               formik={formik}

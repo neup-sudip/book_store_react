@@ -1,29 +1,59 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { ApiServices } from "../../utils/httpServices";
+import {
+  emitErrorToast,
+  emitSuccessToast,
+} from "../../common/toast/ReactToast";
+import { GET_CART } from "../../redux/sagas/actions";
 
 const ViewBook = () => {
-  const [book, setBook] = useState("");
-
   const { slug } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { profile } = useSelector((state) => state.user);
+  const { books } = useSelector((state) => state.cart);
+
+  const [book, setBook] = useState("");
+  const [onCart, setOnCart] = useState(true);
 
   const getBook = async () => {
-    const { data, success } = await ApiServices.get({ url: `/books/${slug}` });
-
+    const { data, success, message } = await ApiServices.get({
+      url: `/books/${slug}`,
+    });
     if (success) {
+      const cart =
+        books &&
+        books?.length > 0 &&
+        books.find((item) => item?.book?.bookId === data?.bookId);
+
+      !cart?.cartId && setOnCart(false);
+
       setBook(data);
     } else {
+      emitErrorToast(message);
       navigate("/books");
     }
   };
 
   const handleCart = async () => {
-    const { data } = await ApiServices.post({
-      url: "/cart/add",
-      data: book?.bookId,
-    });
-    console.log(data);
+    if (!profile) {
+      emitErrorToast("Please login first !");
+    } else {
+      const { message, success } = await ApiServices.post({
+        url: "/cart/add",
+        data: book?.bookId,
+      });
+
+      if (success) {
+        emitSuccessToast(message);
+        setOnCart(true);
+        dispatch(GET_CART({ url: "/cart" }));
+      } else {
+        emitErrorToast(message);
+      }
+    }
   };
 
   useEffect(() => {
@@ -43,15 +73,18 @@ const ViewBook = () => {
           </div>
           <div>
             <h6 className="">NRP {book?.price}</h6>
-            <button
-              onClick={handleCart}
-              className="btn btn-dark btn-rounded btn-sm me-1 "
-              data-toggle="tooltip"
-              type="button"
-              data-original-title="Add to cart"
-            >
-              <i className="fa fa-shopping-cart"></i>
-            </button>
+            {!onCart && (
+              <button
+                onClick={handleCart}
+                className="btn btn-dark btn-rounded btn-sm me-1 "
+                data-toggle="tooltip"
+                type="button"
+                data-original-title="Add to cart"
+              >
+                <i className="fa fa-shopping-cart"></i>
+              </button>
+            )}
+
             <button
               type="button"
               className="btn btn-primary btn-rounded btn-sm"

@@ -15,3 +15,12 @@ export function* getCart({ type, payload }) {
     yield put(setCart({ data: [] }));
   }
 }
+
+export function* setCartData({ type, payload }) {
+  try {
+    yield put(setCart(payload));
+  } catch (error) {
+    console.log(error);
+    yield put(setCart({ data: [] }));
+  }
+}

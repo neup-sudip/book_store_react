@@ -20,9 +20,11 @@ export const ApiServices = {
         } else {
           resObj.message = res.data?.message;
           resObj.status = res.status;
+          resObj.data = res?.data?.data;
         }
       })
       .catch((error) => {
+        resObj.data = error?.response?.data?.data;
         resObj.message = error.response?.data?.message;
         resObj.status = error.response.status;
       });
@@ -47,7 +49,47 @@ export const ApiServices = {
       });
     return resObj;
   },
-  put: async () => {},
-  delete: async () => {},
+  put: async (payload) => {
+    await putApi(payload)
+      .then((res) => {
+        if (res?.data?.result) {
+          resObj.data = res.data?.data;
+          resObj.success = true;
+          resObj.message = res.data?.message;
+          resObj.status = res.data?.status;
+        } else {
+          resObj.message = res.data?.message;
+          resObj.status = res.status;
+          resObj.data = res?.data?.data;
+        }
+      })
+      .catch((error) => {
+        resObj.data = error?.response?.data?.data;
+        resObj.message = error.response?.data?.message;
+        resObj.status = error.response.status;
+      });
+    return resObj;
+  },
+  delete: async (payload) => {
+    await deleteApi(payload)
+      .then((res) => {
+        if (res?.data?.result) {
+          resObj.data = res.data?.data;
+          resObj.success = true;
+          resObj.message = res.data?.message;
+          resObj.status = res.data?.status;
+        } else {
+          resObj.message = res.data?.message;
+          resObj.status = res.status;
+          resObj.data = res?.data?.data;
+        }
+      })
+      .catch((error) => {
+        resObj.data = error?.response?.data?.data;
+        resObj.message = error.response?.data?.message;
+        resObj.status = error.response.status;
+      });
+    return resObj;
+  },
   patch: async () => {},
 };

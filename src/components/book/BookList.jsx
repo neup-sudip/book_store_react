@@ -8,7 +8,9 @@ const BookList = () => {
   const [books, setBooks] = useState([]);
 
   const getBooks = async () => {
-    const { data, message, success } = await ApiServices.get({ url: "/books" });
+    const { data, message, success } = await ApiServices.get({
+      url: "/books",
+    });
 
     if (success) {
       setBooks(data);

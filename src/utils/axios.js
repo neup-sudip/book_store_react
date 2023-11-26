@@ -10,6 +10,13 @@ export const instance = axios.create({
   },
 });
 
+instance.interceptors.response.use((response) => {
+  if (response?.data?.status === 401) {
+    localStorage.removeItem("persist:root");
+  }
+  return response;
+});
+
 export const deleteApi = (url) => instance.delete(url);
 
 export const getApi = ({ url }) => instance.get(url);
