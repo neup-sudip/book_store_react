@@ -7,7 +7,7 @@ import { ApiServices } from "../../utils/httpServices";
 import {
   emitErrorToast,
   emitSuccessToast,
-} from "../../common/toast/ReactToast";
+} from "../../common/toast/EmitToast.js";
 
 const CartList = () => {
   const { books } = useSelector((state) => state?.cart);

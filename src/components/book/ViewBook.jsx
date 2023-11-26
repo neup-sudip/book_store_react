@@ -5,7 +5,7 @@ import { ApiServices } from "../../utils/httpServices";
 import {
   emitErrorToast,
   emitSuccessToast,
-} from "../../common/toast/ReactToast";
+} from "../../common/toast/EmitToast.js";
 import { GET_CART } from "../../redux/sagas/actions";
 
 const ViewBook = () => {

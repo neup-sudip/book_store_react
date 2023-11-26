@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ApiServices } from "../../utils/httpServices";
-import { emitErrorToast } from "../../common/toast/ReactToast";
+import { emitErrorToast } from "../../common/toast/EmitToast.js";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
