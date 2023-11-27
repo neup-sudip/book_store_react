@@ -12,6 +12,7 @@ import LayoutDecider from "./common/LayoutDecider";
 import RoleChecker from "./common/RoleChecker";
 import Protected from "./common/Protected";
 import BookList from "./components/book/BookList";
+import EditBook from "./components/book/EditBook";
 
 function App() {
   const { profile } = useSelector((state) => state.user);
@@ -33,10 +34,13 @@ function App() {
 
         <Route path="books">
           <Route index element={<BookList />} />
-          <Route path=":slug" element={<ViewBook />} />
+          <Route path="view/:slug" element={<ViewBook />} />
 
           <Route path="add" element={<RoleChecker profile={profile} />}>
             <Route index element={<AddBook />} />
+          </Route>
+          <Route path="edit/:slug" element={<RoleChecker profile={profile} />}>
+            <Route index element={<EditBook />} />
           </Route>
         </Route>
 

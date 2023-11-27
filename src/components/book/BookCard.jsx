@@ -24,7 +24,10 @@ const BookCard = ({ book }) => {
               <small className="text-muted">Price: </small>
               {book?.price}
             </p>
-            <Link className="btn btn-primary btn-sm" to={book?.slug}>
+            <Link
+              className="btn btn-primary btn-sm"
+              to={`/books/view/${book?.slug}`}
+            >
               More details
             </Link>
           </div>

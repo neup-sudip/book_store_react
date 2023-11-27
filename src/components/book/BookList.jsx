@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Pagination from "../../common/Pagination";
 import { ApiServices } from "../../utils/httpServices";
 import BookCard from "./BookCard";
@@ -39,15 +39,7 @@ const BookList = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-between align-items-center">
-        <h1>List of Books</h1>
-        <Link
-          className="bg-primary text-white rounded-1 px-1 link-underline"
-          to="/books/add"
-        >
-          Add new Book
-        </Link>
-      </div>
+      <h1>List of Books</h1>
 
       {books?.length > 0 ? (
         <div className="row gy-2 text-white">

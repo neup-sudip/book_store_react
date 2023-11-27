@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ApiServices } from "../../utils/httpServices";
 import {
@@ -63,6 +63,9 @@ const ViewBook = () => {
 
   return (
     <div className="card">
+      <div className="text-end">
+        <Link to={`/books/edit`}>Edit Book</Link>
+      </div>
       <div className="card-body">
         <div className="d-flex align-content-center justify-content-between ">
           <div>

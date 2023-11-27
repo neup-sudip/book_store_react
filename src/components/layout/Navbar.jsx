@@ -40,11 +40,18 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarColor02">
           <ul className="navbar-nav me-auto">
             {profile && profile?.role === "ADMIN" && (
-              <li className="nav-item">
-                <Link to="/users" className="nav-link">
-                  Users
-                </Link>
-              </li>
+              <>
+                <li className="nav-item">
+                  <Link to="/users" className="nav-link">
+                    Users
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/books/add" className="nav-link">
+                    Add Book
+                  </Link>
+                </li>
+              </>
             )}
 
             <li className="nav-item">
