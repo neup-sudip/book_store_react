@@ -51,11 +51,14 @@ const Login = () => {
     });
     if (success) {
       emitSuccessToast(message);
-      dispatch(GET_USER_PROFILE({ url: "/users/profile" }));
-      dispatch(GET_CART({ url: "/cart" }));
-      navigate("/");
+      if (isLoginType) {
+        dispatch(GET_USER_PROFILE({ url: "/users/profile" }));
+        dispatch(GET_CART({ url: "/cart" }));
+        navigate("/");
+      } else {
+        setIsLoginType(true);
+      }
     } else {
-      console.log(data, message);
       if (data) {
         action.setErrors(data);
       } else {
