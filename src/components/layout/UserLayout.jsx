@@ -5,7 +5,6 @@ import ReactToast from "../../common/toast/ReactToast";
 const UsersLayout = () => {
   return (
     <div>
-      <p>User</p>
       <NavBar />
       <Outlet />
       <ReactToast />

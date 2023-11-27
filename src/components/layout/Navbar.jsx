@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,12 +17,16 @@ const Navbar = () => {
 
   const handleSearch = () => {
     if (search?.length > 0) {
+      setSearch("");
       navigate(`/books?query=${search}&page=1`);
     }
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+    <nav
+      className="navbar navbar-expand-lg bg-light sticky-top mb-2 "
+      data-bs-theme="light"
+    >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           Navbar
@@ -41,24 +46,12 @@ const Navbar = () => {
           <ul className="navbar-nav me-auto">
             {profile && profile?.role === "ADMIN" && (
               <>
-                <li className="nav-item">
-                  <Link to="/users" className="nav-link">
-                    Users
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/books/add" className="nav-link">
-                    Add Book
-                  </Link>
-                </li>
+                <NavLink title="Users" link="/users" />
+                <NavLink title="Add Book" link="/books/add" />
               </>
             )}
 
-            <li className="nav-item">
-              <Link to="/books" className="nav-link">
-                Books
-              </Link>
-            </li>
+            <NavLink title="Books" link="/books" />
           </ul>
 
           <div className="d-lg-flex justify-content-between">
@@ -80,13 +73,12 @@ const Navbar = () => {
               </button>
             </div>
 
-            <ul className="navbar-nav me-auto">
+            <ul className="navbar-nav">
               {profile && (
-                <li className="nav-item">
-                  <Link to="/cart" className="nav-link">
-                    Cart
-                  </Link>
-                </li>
+                <>
+                  <NavLink title="Profile" link="/profile" />
+                  <NavLink title="Cart" link="/cart" />
+                </>
               )}
               <li className="nav-item">
                 {profile ? (
@@ -112,3 +104,13 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+export const NavLink = ({ title, link }) => {
+  return (
+    <li className="nav-item">
+      <Link to={link} className="nav-link">
+        {title}
+      </Link>
+    </li>
+  );
+};

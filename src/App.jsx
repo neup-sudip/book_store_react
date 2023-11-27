@@ -13,6 +13,8 @@ import RoleChecker from "./common/RoleChecker";
 import Protected from "./common/Protected";
 import BookList from "./components/book/BookList";
 import EditBook from "./components/book/EditBook";
+import PageNotFound from "./common/PageNotFound";
+import Profile from "./components/user/Profile";
 
 function App() {
   const { profile } = useSelector((state) => state.user);
@@ -47,7 +49,12 @@ function App() {
         <Route path="/cart" element={<Protected profile={profile} />}>
           <Route index element={<CartList />} />
         </Route>
+        <Route path="/profile" element={<Protected profile={profile} />}>
+          <Route index element={<Profile />} />
+        </Route>
       </Route>
+
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }

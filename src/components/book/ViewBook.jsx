@@ -63,9 +63,14 @@ const ViewBook = () => {
 
   return (
     <div className="card">
-      <div className="text-end">
-        <Link to={`/books/edit`}>Edit Book</Link>
-      </div>
+      {profile?.role === "ADMIN" && (
+        <div className="text-end">
+          <Link className="btn btn-primary btn-sm" to={`/books/edit/${slug}`}>
+            Edit Book
+          </Link>
+        </div>
+      )}
+
       <div className="card-body">
         <div className="d-flex align-content-center justify-content-between ">
           <div>

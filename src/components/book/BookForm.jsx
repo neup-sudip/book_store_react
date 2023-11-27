@@ -30,7 +30,7 @@ const BookForm = ({ editBook }) => {
 
   useEffect(() => {
     if (editBook) {
-      setBook(editBook);
+      setBook((prev) => ({ ...prev, ...editBook }));
     }
   }, [editBook]);
 
@@ -41,13 +41,17 @@ const BookForm = ({ editBook }) => {
         Math.random() * 1000
       )}`,
     };
-    const { success, message } = await ApiServices.post({
-      url: "/admin/books",
+
+    const url = editBook ? `/admin/books/${editBook?.bookId}` : "/admin/books";
+    const method = editBook ? "put" : "post";
+
+    const { data, success, message } = await ApiServices[method]({
+      url: url,
       data: payload,
     });
 
     if (success) {
-      navigate("/books");
+      navigate(`/books/view/${data?.slug}`);
     } else {
       emitErrorToast(message);
     }

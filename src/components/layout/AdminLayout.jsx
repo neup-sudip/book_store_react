@@ -5,7 +5,6 @@ import ReactToast from "../../common/toast/ReactToast";
 const AdminLayout = () => {
   return (
     <div>
-      <p>Admin</p>
       <NavBar />
       <Outlet />
       <ReactToast />
