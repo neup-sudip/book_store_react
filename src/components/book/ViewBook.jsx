@@ -7,6 +7,7 @@ import {
   emitSuccessToast,
 } from "../../common/toast/EmitToast.js";
 import { GET_CART } from "../../redux/sagas/actions";
+import ReviewCard from "./ReviewCard.jsx";
 
 const ViewBook = () => {
   const { slug } = useParams();
@@ -16,6 +17,7 @@ const ViewBook = () => {
   const { books } = useSelector((state) => state.cart);
 
   const [book, setBook] = useState("");
+  const [reviews, setReviews] = useState("");
   const [onCart, setOnCart] = useState(true);
 
   const getBook = async () => {
@@ -116,6 +118,8 @@ const ViewBook = () => {
           </div>
         </div>
       </div>
+
+      <ReviewCard bookId={book?.bookId} reviews={reviews} profile={profile} />
     </div>
   );
 };
