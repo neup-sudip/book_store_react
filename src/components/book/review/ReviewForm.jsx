@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { ApiServices } from "../../utils/httpServices";
-import { emitErrorToast, emitSuccessToast } from "../../common/toast/EmitToast";
+import { ApiServices } from "../../../utils/httpServices";
+import {
+  emitErrorToast,
+  emitSuccessToast,
+} from "../../../common/toast/EmitToast";
 
 // import "./review.css";
-const ReviewCard = ({ bookId, profile }) => {
+const ReviewForm = ({ bookId, profile }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
@@ -57,4 +60,4 @@ const ReviewCard = ({ bookId, profile }) => {
   );
 };
 
-export default ReviewCard;
+export default ReviewForm;
