@@ -7,7 +7,6 @@ import {
   emitSuccessToast,
 } from "../../common/toast/EmitToast.js";
 import { GET_CART } from "../../redux/sagas/actions";
-import ReviewCard from "./review/ReviewForm.jsx";
 import ReviewList from "./review/ReviewList.jsx";
 
 const ViewBook = () => {
@@ -19,7 +18,6 @@ const ViewBook = () => {
 
   const [book, setBook] = useState("");
   const [reviews, setReviews] = useState("");
-  const [fetchReview, setFetchReview] = useState(false);
   const [onCart, setOnCart] = useState(true);
 
   const getBook = async () => {
@@ -27,7 +25,6 @@ const ViewBook = () => {
       url: `/books/${slug}`,
     });
     if (success) {
-      console.log(data);
       const cart =
         books &&
         books?.length > 0 &&
@@ -36,6 +33,7 @@ const ViewBook = () => {
       !cart?.cartId && setOnCart(false);
 
       setBook(data);
+      setReviews(data?.reviews);
     } else {
       emitErrorToast(message);
       navigate("/books");
@@ -61,28 +59,10 @@ const ViewBook = () => {
     }
   };
 
-  const getReviews = async () => {
-    const { data, success, message } = await ApiServices.get({
-      url: `/reviews/${book?.bookId}`,
-    });
-
-    if (success) {
-      setReviews(data);
-    } else {
-      emitErrorToast(message);
-    }
-  };
-
   useEffect(() => {
     getBook();
     //eslint-disable-next-line
   }, [slug]);
-
-  useEffect(() => {
-    if (fetchReview) {
-      getReviews();
-    }
-  }, [fetchReview]);
 
   return (
     <div className="card">
@@ -140,20 +120,12 @@ const ViewBook = () => {
         </div>
       </div>
 
-      <button
-        type="button"
-        className="d-flex justify-content-between align-content-center "
-        onClick={() => setFetchReview(true)}
-      >
-        <span>View Reviews</span>
-        <span>
-          <i className="fa fa-arrow-down" aria-hidden="true"></i>
-        </span>
-      </button>
-
-      {fetchReview && <ReviewList reviews={reviews} />}
-
-      <ReviewCard bookId={book?.bookId} reviews={reviews} profile={profile} />
+      <ReviewList
+        reviews={reviews}
+        setReviews={setReviews}
+        profile={profile}
+        bookId={book?.bookId}
+      />
     </div>
   );
 };

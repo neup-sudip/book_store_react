@@ -29,7 +29,7 @@ const Navbar = () => {
     >
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          Navbar
+          Book Store
         </Link>
         <button
           className="navbar-toggler"

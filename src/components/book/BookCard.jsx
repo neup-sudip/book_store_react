@@ -49,8 +49,8 @@ const BookCard = ({ book }) => {
                         <i
                           className={`fa fa-star ${
                             item > book?.overallRating
-                              ? "text-light-emphasis"
-                              : "text-warning"
+                              ? "star-inactive"
+                              : "star-active"
                           }`}
                         ></i>
                       </label>

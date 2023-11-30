@@ -1,12 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import ReviewCard from "./ReviewCard";
-import "./reviewcard.css";
+import ReviewForm from "./ReviewForm";
 
-const ReviewList = ({ reviews }) => {
+const ReviewList = ({ reviews, setReviews, profile, bookId }) => {
   const [perRating, setPerRating] = useState({});
   const [totalNumRating, setTotalNumRating] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
+  const [reviewList, setReviewList] = useState([]);
+  const [prevReview, setPrevReview] = useState("");
+
+  const [editModel, setEditModel] = useState(false);
 
   const labels = ["Excellent", "Good", "Average", "Poor", "Terrible"];
 
@@ -20,13 +24,20 @@ const ReviewList = ({ reviews }) => {
       4: 0,
       5: 0,
     };
+    let otherReviews = [];
 
     reviews?.forEach((review) => {
       perRate[review?.rating] += 1;
       totalNumRate += 1;
       totalRate += review?.rating;
+      if (review?.userId === profile?.userId) {
+        setPrevReview(review);
+      } else {
+        otherReviews.push(review);
+      }
     });
 
+    setReviewList(otherReviews);
     setPerRating(perRate);
     setAverageRating(totalRate / totalNumRate);
     setTotalNumRating(totalNumRate);
@@ -35,8 +46,10 @@ const ReviewList = ({ reviews }) => {
   useEffect(() => {
     if (reviews) handleReviews();
   }, [reviews]);
+
   return (
     <div className="container-fluid px-1 mx-auto">
+      <h4 className="ms-2">Rating and Reviews</h4>
       <div className="row justify-content-center">
         <div className="col-xl-7 col-lg-8 col-md-10 col-12 text-center">
           <div className="card-c">
@@ -79,12 +92,45 @@ const ReviewList = ({ reviews }) => {
               </div>
             </div>
           </div>
-
-          {reviews &&
-            reviews?.map((review, idx) => (
-              <ReviewCard key={idx} review={review} />
-            ))}
         </div>
+      </div>
+
+      {prevReview ? (
+        <div>
+          <button
+            type="button"
+            onClick={() => setEditModel(true)}
+            className="btn btn-primary ms-2"
+          >
+            Edit Your Review
+          </button>
+          {editModel ? (
+            <ReviewForm
+              bookId={bookId}
+              prevReview={prevReview}
+              setReviews={(data) => setReviews([...reviewList, data])}
+              setEditModel={setEditModel}
+            />
+          ) : (
+            <div className="col-sm-10 bg-success rounded-1 ">
+              <ReviewCard review={prevReview} />
+            </div>
+          )}
+        </div>
+      ) : (
+        <ReviewForm
+          bookId={bookId}
+          setReviews={(data) => setReviews([...reviewList, data])}
+        />
+      )}
+
+      <div className="col-sm-10">
+        {/* <div className="review-block"> */}
+        {reviewList &&
+          reviewList?.map((review, idx) => (
+            <ReviewCard key={idx} review={review} />
+          ))}
+        {/* </div> */}
       </div>
     </div>
   );

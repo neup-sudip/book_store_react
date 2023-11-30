@@ -1,33 +1,39 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import { ApiServices } from "../../../utils/httpServices";
 import {
   emitErrorToast,
   emitSuccessToast,
 } from "../../../common/toast/EmitToast";
 
-// import "./review.css";
-const ReviewForm = ({ bookId, profile }) => {
+const ReviewForm = ({ bookId, prevReview, setReviews, setEditModel }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
 
   const handleSubmit = async () => {
-    console.log(rating, comment);
     const { data, success, message } = await ApiServices.post({
       url: "/reviews",
       data: { bookId, rating, comment },
     });
 
-    console.log(data);
-
     if (success) {
       emitSuccessToast(message);
+      setReviews(data);
+      setEditModel && setEditModel(false);
     } else {
       emitErrorToast(message);
     }
   };
 
+  useEffect(() => {
+    if (prevReview) {
+      setComment(prevReview?.comment);
+      setRating(prevReview?.rating);
+    }
+  }, [prevReview]);
+
   return (
-    <div className="form-group mt-2">
+    <div className="form-group m-2 bg-info-subtle rounded-1 ">
       {[1, 2, 3, 4, 5].map((num) => (
         <button
           key={num}
