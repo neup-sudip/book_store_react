@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import AdminLayout from "../components/layout/AdminLayout";
-import UsersLayout from "../components/layout/UserLayout";
+import AdminLayout from "../common/layout/AdminLayout";
+import UsersLayout from "../common/layout/UserLayout";
 
 const LayoutDecider = ({ profile }) => {
   if (profile?.role === "ADMIN") {

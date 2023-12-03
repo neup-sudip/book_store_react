@@ -28,7 +28,7 @@ const CartList = () => {
       setTotalAmount(price);
     }
     //eslint-disable-next-line
-  }, []);
+  }, [books]);
 
   const handleRemove = async (cartId) => {
     const { message, success } = await ApiServices.delete(`/cart/${cartId}`);
@@ -68,6 +68,19 @@ const CartList = () => {
 
   const handleChange = (changeAmount) => {
     setTotalAmount((prev) => prev + changeAmount);
+  };
+
+  const handleCheckout = async () => {
+    const { success, message } = await ApiServices.post({
+      url: "/order",
+    });
+
+    if (success) {
+      emitSuccessToast(message);
+      dispatch(SET_CART([]));
+    } else {
+      emitErrorToast(message);
+    }
   };
 
   return (
@@ -113,9 +126,12 @@ const CartList = () => {
         </div>
         <div className="mt-4 d-flex align-items-center justify-content-between ">
           <div className="">
-            <Link to="/" className="btn btn-primary mb-4 btn-lg pl-5 pr-5">
+            <button
+              onClick={handleCheckout}
+              className="btn btn-primary mb-4 btn-lg pl-5 pr-5"
+            >
               Checkout
-            </Link>
+            </button>
           </div>
           <div className="">
             <Link href="catalog.html">

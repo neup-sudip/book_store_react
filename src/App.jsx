@@ -2,7 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserList from "./components/user/UserList";
 // import SingleUser from "./components/user/ViewUser";
-import HomePage from "./components/layout/HomePage";
+import HomePage from "./common/layout/HomePage";
 import Login from "./components/auth/Login";
 import AddBook from "./components/book/AddBook";
 import ViewBook from "./components/book/ViewBook";
@@ -15,6 +15,8 @@ import BookList from "./components/book/BookList";
 import EditBook from "./components/book/EditBook";
 import PageNotFound from "./common/PageNotFound";
 import Profile from "./components/user/Profile";
+import OrderList from "./components/orders/OrderList";
+import "./index.css";
 
 function App() {
   const { profile } = useSelector((state) => state.user);
@@ -51,6 +53,10 @@ function App() {
         </Route>
         <Route path="/profile" element={<Protected profile={profile} />}>
           <Route index element={<Profile />} />
+        </Route>
+
+        <Route path="/orders" element={<RoleChecker profile={profile} />}>
+          <Route index element={<OrderList />} />
         </Route>
       </Route>
 
