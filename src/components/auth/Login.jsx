@@ -87,7 +87,7 @@ const Login = () => {
           enableReinitialize
         >
           {(formik) => (
-            <Form className="">
+            <Form className="container w-75">
               {isLoginType ? <h1>Please Log in</h1> : <h1>Please sign Up</h1>}
               <div>
                 <FormikInputField

@@ -9,7 +9,7 @@ const OrderCard = ({ order }) => {
   const handleUpdate = async () => {
     const { success, message } = await ApiServices.put({
       url: `/admin/orders/${orderData?.orderId}`,
-      data: `${orderData?.status}`,
+      data: orderData?.status,
     });
     if (success) {
       emitSuccessToast(message);

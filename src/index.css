@@ -2,3 +2,22 @@
   cursor: pointer;
   color: rgb(16, 45, 193);
 }
+
+.c_size {
+  width: 15px;
+  height: 100px;
+}
+
+/* .c-rating span {
+  font-size: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: gold;
+}
+
+.c-rating span:before {
+  content: "\2606\2606\2606\2606\2606";
+  position: absolute;
+  color: #bdbdbd;
+  z-index: -1;
+} */

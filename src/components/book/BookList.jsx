@@ -39,8 +39,6 @@ const BookList = () => {
 
   return (
     <div>
-      <h1>List of Books</h1>
-
       {books?.length > 0 ? (
         <div className="row gy-2 text-white">
           {books?.map((book, idx) => (

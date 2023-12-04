@@ -60,11 +60,14 @@ const ReviewList = ({ reviews, setReviews, profile, bookId }) => {
                   <p className="">out of 5</p>
                 </div>
                 <div>
-                  <span className="fa fa-star star-active mx-1"></span>
-                  <span className="fa fa-star star-active mx-1"></span>
-                  <span className="fa fa-star star-active mx-1"></span>
-                  <span className="fa fa-star star-active mx-1"></span>
-                  <span className="fa fa-star star-inactive mx-1"></span>
+                  {[1, 2, 3, 4, 5].map((item) => (
+                    <span
+                      key={item}
+                      className={`fa fa-star ${
+                        averageRating >= item ? "star-active" : "star-inactive"
+                      } mx-1`}
+                    ></span>
+                  ))}
                   <span>{`(${totalNumRating})`}</span>
                 </div>
               </div>
@@ -118,10 +121,14 @@ const ReviewList = ({ reviews, setReviews, profile, bookId }) => {
           )}
         </div>
       ) : (
-        <ReviewForm
-          bookId={bookId}
-          setReviews={(data) => setReviews([...reviewList, data])}
-        />
+        <>
+          {profile && (
+            <ReviewForm
+              bookId={bookId}
+              setReviews={(data) => setReviews([...reviewList, data])}
+            />
+          )}
+        </>
       )}
 
       <div className="col-sm-10">
