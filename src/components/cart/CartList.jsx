@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import CartCard from "./CartCard";
-import { SET_CART } from "../../redux/sagas/actions";
+import { GET_CART, SET_CART } from "../../redux/sagas/actions";
 import { ApiServices } from "../../utils/httpServices";
 import {
   emitErrorToast,
@@ -17,8 +17,16 @@ const CartList = () => {
 
   const [totalAmount, setTotalAmount] = useState("000.00");
 
+  const getCartList = () => {
+    dispatch(GET_CART("/cart"));
+  };
+
   useEffect(() => {
-    // getCartList();
+    getCartList();
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
     if (books) {
       setBookList(books);
       let price = 0;
@@ -128,6 +136,7 @@ const CartList = () => {
           <div className="">
             <button
               onClick={handleCheckout}
+              disabled={bookList?.length < 1}
               className="btn btn-primary mb-4 btn-lg pl-5 pr-5"
             >
               Checkout

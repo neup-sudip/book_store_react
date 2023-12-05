@@ -7,8 +7,10 @@ const { get } = ApiServices;
 
 export function* getUserProfile({ type, payload }) {
   try {
-    const { data } = yield call(get, payload);
-    yield put(setProfile(data));
+    const { data, success } = yield call(get, payload);
+    if (success) {
+      yield put(setProfile(data));
+    }
   } catch (error) {
     console.log(error);
     yield put(setProfile({ data: null }));

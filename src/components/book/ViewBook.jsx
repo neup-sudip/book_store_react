@@ -50,7 +50,7 @@ const ViewBook = () => {
       if (success) {
         emitSuccessToast(message);
         setOnCart(true);
-        dispatch(GET_CART({ url: "/cart" }));
+        dispatch(GET_CART("/cart"));
       } else {
         emitErrorToast(message);
       }

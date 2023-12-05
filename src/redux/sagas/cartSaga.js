@@ -8,8 +8,10 @@ const { get } = ApiServices;
 
 export function* getCart({ type, payload }) {
   try {
-    const { data } = yield call(get, payload);
-    yield put(setCart(data));
+    const { data, success } = yield call(get, payload);
+    if (success) {
+      yield put(setCart(data));
+    }
   } catch (error) {
     console.log(error);
     yield put(setCart({ data: [] }));

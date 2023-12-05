@@ -27,8 +27,9 @@ const OrderCard = ({ order }) => {
   return (
     <tr>
       <th scope="row">{orderData?.orderId}</th>
+      <th scope="row">{orderData?.user?.username}</th>
       <td>{orderData?.book?.title || "--"}</td>
-      {/* <td>{orderData?.status || "--"}</td> */}
+
       <td>
         <select
           value={orderData?.status}
@@ -41,6 +42,7 @@ const OrderCard = ({ order }) => {
           <option value="delivered">Delivered</option>
         </select>
       </td>
+
       <td>{new Date(orderData?.date).toLocaleDateString() || "--"}</td>
       <td>{new Date(orderData?.updatedOn).toLocaleDateString() || "--"}</td>
       <td>{orderData?.quantity || "--"}</td>

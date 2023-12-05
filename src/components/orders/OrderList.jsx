@@ -22,6 +22,7 @@ const OrderList = () => {
 
   const tableHead = [
     { label: "Order ID", value: "orderId" },
+    { label: "User", value: "userId" },
     { label: "Book", value: "book" },
     { label: "Status", value: "status" },
     { label: "Order Date", value: "date" },
