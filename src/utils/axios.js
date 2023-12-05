@@ -12,7 +12,7 @@ export const instance = axios.create({
 
 export const deleteApi = (url) => instance.delete(url);
 
-export const getApi = ({ url }) => instance.get(url);
+export const getApi = (url) => instance.get(url);
 
 export const putApi = ({ url, data }) => instance.put(url, data);
 

@@ -17,6 +17,7 @@ import PageNotFound from "./common/PageNotFound";
 import Profile from "./components/user/Profile";
 import OrderList from "./components/orders/OrderList";
 import "./index.css";
+import { QueryBookList } from "./components/testquery/QueryBookList";
 
 function App() {
   const { profile } = useSelector((state) => state.user);
@@ -30,6 +31,7 @@ function App() {
 
       <Route path="/" element={<LayoutDecider profile={profile} />}>
         <Route index element={<HomePage />} />
+        <Route path="testbook" element={<QueryBookList />} />
 
         <Route path="users" element={<RoleChecker profile={profile} />}>
           <Route index element={<UserList />} />

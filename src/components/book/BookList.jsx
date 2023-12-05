@@ -12,9 +12,9 @@ const BookList = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const getBooks = async (query, page) => {
-    const { data, success, message } = await ApiServices.get({
-      url: `/books?query=${query}&page=${page}`,
-    });
+    const { data, success, message } = await ApiServices.get(
+      `/books?query=${query}&page=${page}`
+    );
 
     if (success) {
       setBooks(data?.books);

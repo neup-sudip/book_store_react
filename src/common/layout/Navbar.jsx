@@ -53,6 +53,7 @@ const Navbar = () => {
             )}
 
             <NavLink title="Books" link="/books" />
+            <NavLink title="Test" link="/testbook" />
           </ul>
 
           <div className="d-lg-flex justify-content-between">

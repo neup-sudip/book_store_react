@@ -52,8 +52,8 @@ const Login = () => {
     if (success) {
       emitSuccessToast(message);
       if (isLoginType) {
-        dispatch(GET_USER_PROFILE({ url: "/users/profile" }));
-        dispatch(GET_CART({ url: "/cart" }));
+        dispatch(GET_USER_PROFILE("/users/profile"));
+        dispatch(GET_CART("/cart"));
         navigate("/");
       } else {
         setIsLoginType(true);

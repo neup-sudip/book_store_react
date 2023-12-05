@@ -7,9 +7,7 @@ const Profile = () => {
   const [userData, setUserData] = useState(null);
 
   const getUser = async () => {
-    const { data, success, message } = await ApiServices.get({
-      url: "/users/profile",
-    });
+    const { data, success, message } = await ApiServices.get("/users/profile");
     if (success) {
       setUserData(data);
     } else {

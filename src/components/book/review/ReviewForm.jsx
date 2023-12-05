@@ -5,10 +5,12 @@ import {
   emitErrorToast,
   emitSuccessToast,
 } from "../../../common/toast/EmitToast";
+// import { useQueryClient } from "@tanstack/react-query";
 
 const ReviewForm = ({ bookId, prevReview, setReviews, setEditModel }) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  // const queryClient = useQueryClient();
 
   const handleSubmit = async () => {
     const { data, success, message } = await ApiServices.post({
@@ -23,6 +25,8 @@ const ReviewForm = ({ bookId, prevReview, setReviews, setEditModel }) => {
     } else {
       emitErrorToast(message);
     }
+
+    // queryClient.refetchQueries({ queryKey: ["bookspage", { id: "2" }] });
   };
 
   useEffect(() => {

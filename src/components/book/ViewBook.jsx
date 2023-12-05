@@ -21,9 +21,7 @@ const ViewBook = () => {
   const [onCart, setOnCart] = useState(true);
 
   const getBook = async () => {
-    const { data, success, message } = await ApiServices.get({
-      url: `/books/${slug}`,
-    });
+    const { data, success, message } = await ApiServices.get(`/books/${slug}`);
     if (success) {
       const cart =
         books &&

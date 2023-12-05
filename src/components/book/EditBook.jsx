@@ -11,9 +11,7 @@ const EditBook = () => {
   const [bookData, setBookData] = useState(null);
 
   const getBook = async () => {
-    const { data, success, message } = await ApiServices.get({
-      url: `/books/${slug}`,
-    });
+    const { data, success, message } = await ApiServices.get(`/books/${slug}`);
 
     if (success) {
       setBookData(data);

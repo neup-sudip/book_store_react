@@ -9,9 +9,9 @@ const OrderList = () => {
   const [orderBy, setOrderBy] = useState(1);
 
   const getOrders = async () => {
-    const { data, message, success } = await ApiServices.get({
-      url: `/admin/orders?sort=${sort}&order=${orderBy}`,
-    });
+    const { data, message, success } = await ApiServices.get(
+      `/admin/orders?sort=${sort}&order=${orderBy}`
+    );
 
     if (success) {
       setOrders(data);

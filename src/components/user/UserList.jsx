@@ -6,9 +6,7 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
 
   const getUsers = async () => {
-    const { data, message, success } = await ApiServices.get({
-      url: "/admin/users",
-    });
+    const { data, message, success } = await ApiServices.get("/admin/users");
     if (success) {
       setUsers(data);
     } else {
