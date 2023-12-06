@@ -9,13 +9,18 @@ const AxiosInterceptor = () => {
   const dispatch = useDispatch();
 
   const handleRequest = () => {
-    instance.interceptors.response.use((response) => {
-      if (response?.data?.status === 401) {
-        dispatch(LOGOUT());
-        navigate("/auth/login");
+    instance.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        if (error?.response?.status === 401) {
+          dispatch(LOGOUT());
+          navigate("/auth/login");
+        }
+        return Promise.reject(error);
       }
-      return response;
-    });
+    );
   };
 
   useEffect(() => {
