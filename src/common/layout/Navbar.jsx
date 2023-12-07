@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { LOGOUT } from "../../redux/sagas/actions";
 
 const Navbar = () => {
-  const { profile } = useSelector((state) => state.user);
+  const { profile } = useSelector((state) => state?.user);
+  const { books } = useSelector((state) => state?.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -79,14 +80,21 @@ const Navbar = () => {
               {profile && (
                 <>
                   <NavLink title="Profile" link="/profile" />
-                  <NavLink title="Cart" link="/cart" />
+                  <li className="nav-item">
+                    <Link to="/cart" className="nav-link text-dark ">
+                      <i className="fa fa-shopping-cart"></i>
+                      <span className="text-primary ms-1">
+                        {books && books?.length}
+                      </span>
+                    </Link>
+                  </li>
                 </>
               )}
               <li className="nav-item">
                 {profile ? (
                   <button
                     onClick={handleLogout}
-                    className="nav-link"
+                    className="nav-link text-danger "
                     type="button"
                   >
                     Logout
@@ -110,7 +118,7 @@ export default Navbar;
 export const NavLink = ({ title, link }) => {
   return (
     <li className="nav-item">
-      <Link to={link} className="nav-link">
+      <Link to={link} className="nav-link text-dark ">
         {title}
       </Link>
     </li>
