@@ -143,7 +143,7 @@ const CartList = () => {
             </button>
           </div>
           <div className="">
-            <Link href="catalog.html">
+            <Link to="/">
               <i className="fas fa-arrow-left mr-2"></i> Continue Shopping
             </Link>
           </div>

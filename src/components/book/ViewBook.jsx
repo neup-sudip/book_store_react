@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ApiServices } from "../../utils/httpServices";
 import {
   emitErrorToast,
+  emitInfoToast,
   emitSuccessToast,
 } from "../../common/toast/EmitToast.js";
 import { GET_CART } from "../../redux/sagas/actions";
@@ -97,6 +98,9 @@ const ViewBook = () => {
             <button
               type="button"
               className="btn btn-primary btn-rounded btn-sm"
+              onClick={() =>
+                emitInfoToast("This feature is not implemented yet")
+              }
             >
               Buy Now
             </button>

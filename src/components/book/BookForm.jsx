@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import FormikInputField from "../../common/form/FormikInput";
 import FormikSelect from "../../common/form/FormikSelect";
 import FormikSwitch from "../../common/form/FormikSwitch";
-// import bookValidation from "../../validation/bookvalidation";
+import bookValidation from "../../validation/bookvalidation";
 import { useNavigate } from "react-router-dom";
 import FormikTextArea from "../../common/form/FormikTextArea";
 import slugify from "slugify";
@@ -61,7 +61,7 @@ const BookForm = ({ editBook }) => {
     <Formik
       initialValues={book}
       onSubmit={handleSubmit}
-      // validationSchema={bookValidation}
+      validationSchema={bookValidation}
       enableReinitialize
     >
       {(formik) => (
